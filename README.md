@@ -168,7 +168,7 @@ project
 
 ## Запись консоли (asciinema)
 
-https://asciinema.org/a/
+https://asciinema.org/a/iY8nGbBFG3jdRYFM
 
 ## Автор
 
