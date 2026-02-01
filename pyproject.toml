@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "project1_Poley_Evgeny_M25-555"
+version = "3.12.3"
+description = "1"
+authors = ["Poley Evgeny"]
+packages = [
+  { include = "labyrinth" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.7.0"
+
+[tool.poetry.scripts]
+project = "labyrinth.main:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+exclude = ["venv", ".venv", "dist", "__pycache__"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
