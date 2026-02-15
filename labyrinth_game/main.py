@@ -1,12 +1,15 @@
-from .constants import COMMANDS, DIRECTIONS
-from .player_actions import (
+#!/usr/bin/env python3
+
+
+from labyrinth_game.constants import COMMANDS, DIRECTIONS
+from labyrinth_game.player_actions import (
     get_input,
     move_player,
     show_inventory,
     take_item,
     use_item,
 )
-from .utils import (
+from labyrinth_game.utils import (
     attempt_open_treasure,
     describe_current_room,
     show_help,
@@ -15,6 +18,7 @@ from .utils import (
 
 
 def process_command(game_state: dict, command_line: str) -> None:
+    # Разбор введенной строки
     command_line = command_line.strip()
     if not command_line:
         return
@@ -49,6 +53,7 @@ def process_command(game_state: dict, command_line: str) -> None:
             else:
                 use_item(game_state, arg)
         case "solve":
+            # Проверка специальной логики для комнаты сокровищ
             current_room = game_state.get("current_room")
             if current_room == "treasure_room":
                 attempt_open_treasure(game_state)
@@ -64,6 +69,7 @@ def process_command(game_state: dict, command_line: str) -> None:
 
 
 def main() -> None:
+    # Запуск
     game_state = {
         "player_inventory": [],
         "current_room": "entrance",
@@ -76,7 +82,9 @@ def main() -> None:
 
     while not game_state.get("game_over"):
         command_line = get_input("> ")
+        # Базовая проверка выхода
         if command_line.strip().lower() in ("quit", "exit"):
+            game_state["game_over"] = True
             print("Игра окончена.")
             break
 
