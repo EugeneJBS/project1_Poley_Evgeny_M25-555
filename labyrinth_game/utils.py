@@ -3,9 +3,14 @@
 """
 
 import math
+
 from .constants import (
-    COMMANDS, ROOMS, EVENT_PROBABILITY_MODULO,
-    RANDOM_EVENT_TYPES, TRAP_DANGER_MODULO, TRAP_DEATH_THRESHOLD
+    COMMANDS,
+    EVENT_PROBABILITY_MODULO,
+    RANDOM_EVENT_TYPES,
+    ROOMS,
+    TRAP_DANGER_MODULO,
+    TRAP_DEATH_THRESHOLD,
 )
 
 
@@ -72,7 +77,8 @@ def random_event(game_state: dict) -> None:
         return
 
     event_id = pseudo_random(seed + 1, RANDOM_EVENT_TYPES)
-    room = ROOMS[game_state['current_room']]
+    current_room = game_state['current_room']
+    room = ROOMS[current_room]
 
     if event_id == 0:
         print("\nВы нашли на полу монетку!")
@@ -82,8 +88,10 @@ def random_event(game_state: dict) -> None:
         if 'sword' in game_state['player_inventory']:
             print("Вы крепче сжали меч, и шорох прекратился.")
     elif event_id == 2:
-        # Проверка условий ловушки
-        if game_state['current_room'] == 'trap_room' and 'torch' not in game_state['player_inventory']:
+        is_trap_room = current_room == 'trap_room'
+        has_no_torch = 'torch' not in game_state['player_inventory']
+
+        if is_trap_room and has_no_torch:
             print("\nВ темноте вы не заметили нажимную плиту!")
             trigger_trap(game_state)
 
